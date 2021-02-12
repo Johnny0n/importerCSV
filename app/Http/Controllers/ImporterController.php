@@ -22,7 +22,7 @@ class ImporterController extends BaseController
 
 
 
-        $name = 'janek_'.Carbon::today()->format('Ymd').'.csv';
+        $name = 'import_prod  '.Carbon::today()->format('d.m.Y').'.csv';
         $headers = array(
             "Content-type"        => "text/csv",
             "Content-Disposition" => "attachment; filename=".$name,
@@ -62,6 +62,7 @@ class ImporterController extends BaseController
             "Product" => "product",
             "DescriptionBig" => "description",
             "Features" => "Features",
+            "Brand" => "Brand",
         ];
 
 
@@ -94,6 +95,8 @@ class ImporterController extends BaseController
                 $row['Unit_Of_Sale']  = $simpleRow[19];
                 $row['Image_Path']  = $simpleRow[20];
 
+
+
                 for ($j=1;$j<sizeof($descGB);$j++){
                     $simpleDescRow = explode(',',$descGB[$j]);
                     if($simpleDescRow[3]==$simpleRow[0]){
@@ -112,7 +115,7 @@ class ImporterController extends BaseController
                     }
 
                 }
-
+                $row['Brand']  = "PortWest";
 
                 fputcsv($file, $row);
             }
