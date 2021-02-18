@@ -17,3 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/janek', 'ImporterController@importer');
+Route::get('/color', 'ImporterControllerColor@importer');

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Carbon;
 
-class ImporterController extends BaseController
+class ImporterControllerColor extends BaseController
 {
 
     public function importer()
@@ -65,13 +65,15 @@ class ImporterController extends BaseController
             "Brand" => "Brand",
         ];
 
-
-        $callback = function() use($csv_order_map,$sohGB,$descGB) {
-            $file = fopen('php://output', 'w');
-            fputcsv($file, array_values($csv_order_map));
+//        $callback = function() use($csv_order_map,$sohGB,$descGB) {
+//            $file = fopen('php://output', 'w');
+            $arrayOfColors= array();
+//            fputcsv($file, array_values($csv_order_map));
             for($i=1; $i<sizeof($sohGB);$i++){
 
+
                 $simpleRow = explode(',',$sohGB[$i]);
+
                 $row = [];
                 $row['Style']  = $simpleRow[0];
                 $row['Item']  = $simpleRow[1];
@@ -79,6 +81,9 @@ class ImporterController extends BaseController
                 $row['Price']  = $simpleRow[3];
                 $row['Colour']  = $simpleRow[4];
                 $row['Size']  = $simpleRow[5];
+
+//                !in_array($simpleRow[5], $arrayOfColors) ? array_push($arrayOfColors,$simpleRow[5]) : null;
+
                 $row['Fit']  = $simpleRow[6];
                 $row['DescSmall']  = $simpleRow[7];
                 $row['UK_SoH']  = $simpleRow[8];
@@ -100,6 +105,7 @@ class ImporterController extends BaseController
                     $simpleDescRow = explode(',',$descGB[$j]);
                     if($simpleDescRow[3]==$simpleRow[0]){
                         $row['ProductType']  = $simpleDescRow[0];
+                        !in_array($simpleDescRow[0], $arrayOfColors) ? array_push($arrayOfColors,$simpleDescRow[0]) : null;
                         $row['Range']  = $simpleDescRow[1];
                         $row['Collection']  = $simpleDescRow[2];
                         $row['Product']  = $simpleDescRow[4];
@@ -111,17 +117,17 @@ class ImporterController extends BaseController
                         }
                         $row['Features']  = $features;
                         break;
-                    };
+                    }
 
                 }
                 $row['Brand']  = "PortWest";
-                $row['ColorPaletteName']  = "color-values-rgb.csv";
-                $row['SizeTable']  = "example-size-chart.csv";
 
-                fputcsv($file, $row);
-            }
+//                fputcsv($file, $row);
+
+            };
+        dd($arrayOfColors);
             fclose($file);
-        };
+//        };
 
 
 
