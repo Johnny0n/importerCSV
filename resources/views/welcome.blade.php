@@ -85,7 +85,10 @@
                 </div>
 
                 <div class="links">
-                    <a href="http://127.0.0.1:8000/janek">TU KLIKNIJ MORDECZKO</a>
+                    <a href="http://127.0.0.1:8000/janek">impertero</a>
+                    <a href="http://127.0.0.1:8000/color">only color</a>
+                    <a href="http://127.0.0.1:8000/img">img dowloader</a>
+                    <a href="http://127.0.0.1:8000/img2">img dowloader test</a>
                 </div>
             </div>
         </div>

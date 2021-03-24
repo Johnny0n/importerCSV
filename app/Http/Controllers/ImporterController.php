@@ -68,58 +68,62 @@ class ImporterController extends BaseController
 
         $callback = function() use($csv_order_map,$sohGB,$descGB) {
             $file = fopen('php://output', 'w');
+            $arrayOflook=["MV","FR"];
             fputcsv($file, array_values($csv_order_map));
             for($i=1; $i<sizeof($sohGB);$i++){
-
                 $simpleRow = explode(',',$sohGB[$i]);
-                $row = [];
-                $row['Style']  = $simpleRow[0];
-                $row['Item']  = $simpleRow[1];
-                $row['Carton_Qty']  = $simpleRow[2];
-                $row['Price']  = $simpleRow[3];
-                $row['Colour']  = $simpleRow[4];
-                $row['Size']  = $simpleRow[5];
-                $row['Fit']  = $simpleRow[6];
-                $row['DescSmall']  = $simpleRow[7];
-                $row['UK_SoH']  = $simpleRow[8];
-                $row['PL_SoH']  = $simpleRow[9];
-                $row['Next_Delivery']  = $simpleRow[10];
-                $row['Length']  = $simpleRow[11];
-                $row['Width']  = $simpleRow[12];
-                $row['Height']  = $simpleRow[13];
-                $row['CC']  = $simpleRow[14];
-                $row['Weight(Kg)']  = $simpleRow[15];
-                $row['EAN13']  = $simpleRow[16];
-                $row['DUN14']  = $simpleRow[17];
-                $row['Commodity_Code']  = $simpleRow[18];
-                $row['Unit_Of_Sale']  = $simpleRow[19];
-                $row['Image_Path']  = $simpleRow[20];
+                if (in_array(substr($simpleRow[1],0,2),$arrayOflook)){
+                    $row = [];
+                    $row['Style']  = $simpleRow[0];
+                    $row['Item']  = $simpleRow[1];
+                    $row['Carton_Qty']  = $simpleRow[2];
+                    $row['Price']  = $simpleRow[3];
+                    $row['Colour']  = $simpleRow[4];
+                    $row['Size']  = $simpleRow[5];
+                    $row['Fit']  = $simpleRow[6];
+                    $row['DescSmall']  = $simpleRow[7];
+                    $row['UK_SoH']  = $simpleRow[8];
+                    $row['PL_SoH']  = $simpleRow[9];
+                    $row['Next_Delivery']  = $simpleRow[10];
+                    $row['Length']  = $simpleRow[11];
+                    $row['Width']  = $simpleRow[12];
+                    $row['Height']  = $simpleRow[13];
+                    $row['CC']  = $simpleRow[14];
+                    $row['Weight(Kg)']  = $simpleRow[15];
+                    $row['EAN13']  = $simpleRow[16];
+                    $row['DUN14']  = $simpleRow[17];
+                    $row['Commodity_Code']  = $simpleRow[18];
+                    $row['Unit_Of_Sale']  = $simpleRow[19];
+                    $row['Image_Path']  = $simpleRow[20];
 
 
-                for ($j=1;$j<sizeof($descGB);$j++){
-                    $simpleDescRow = explode(',',$descGB[$j]);
-                    if($simpleDescRow[3]==$simpleRow[0]){
-                        $row['ProductType']  = $simpleDescRow[0];
-                        $row['Range']  = $simpleDescRow[1];
-                        $row['Collection']  = $simpleDescRow[2];
-                        $row['Product']  = $simpleDescRow[4];
-                        $row['DescriptionBig']  = $simpleDescRow[5];
+                    for ($j=1;$j<sizeof($descGB);$j++){
+                        $simpleDescRow = explode(',',$descGB[$j]);
+                        if($simpleDescRow[3]==$simpleRow[0]){
+                            $row['ProductType']  = $simpleDescRow[0];
+                            $row['Range']  = $simpleDescRow[1];
+                            $row['Collection']  = $simpleDescRow[2];
+                            $row['Product']  = $simpleDescRow[4];
+                            $row['DescriptionBig']  = $simpleDescRow[5];
 
-                        $features='';
-                        for ($k=6;$k<sizeof($simpleDescRow)-1;$k++){
-                            $features=$features.$simpleDescRow[$k].',';
-                        }
-                        $row['Features']  = $features;
-                        break;
-                    };
+                            $features='';
+                            for ($k=6;$k<sizeof($simpleDescRow)-1;$k++){
+                                $features=$features.$simpleDescRow[$k].',';
+                            }
+                            $row['Features']  = $features;
+                            break;
+                        };
 
+                    }
+                    $row['Brand']  = "PortWest";
+                    $row['ColorPaletteName']  = "color-values-rgb.csv";
+                    $row['SizeTable']  = "example-size-chart.csv";
+
+                    fputcsv($file, $row);
                 }
-                $row['Brand']  = "PortWest";
-                $row['ColorPaletteName']  = "color-values-rgb.csv";
-                $row['SizeTable']  = "example-size-chart.csv";
 
-                fputcsv($file, $row);
             }
+
             fclose($file);
         };
 
