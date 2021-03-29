@@ -2,7 +2,9 @@
 
 
 ## About
-Skromny importer napisany w php , Importer Controller
+Importer and csv connector , with ImgDowload conntroller , explosion conntroller , and same specifide dump selector
+
+enjoy
 
 
 ## License
