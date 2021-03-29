@@ -82,7 +82,7 @@ class ImporterControllerColor extends BaseController
                 $row['Colour']  = $simpleRow[4];
                 $row['Size']  = $simpleRow[5];
 
-//                !in_array($simpleRow[5], $arrayOfColors) ? array_push($arrayOfColors,$simpleRow[5]) : null;
+                !in_array($simpleRow[5], $arrayOfColors) ? array_push($arrayOfColors,$simpleRow[5]) : null;
 
                 $row['Fit']  = $simpleRow[6];
                 $row['DescSmall']  = $simpleRow[7];
@@ -105,7 +105,7 @@ class ImporterControllerColor extends BaseController
                     $simpleDescRow = explode(',',$descGB[$j]);
                     if($simpleDescRow[3]==$simpleRow[0]){
                         $row['ProductType']  = $simpleDescRow[0];
-                        !in_array($simpleDescRow[0], $arrayOfColors) ? array_push($arrayOfColors,$simpleDescRow[0]) : null;
+//                        !in_array($simpleDescRow[0], $arrayOfColors) ? array_push($arrayOfColors,$simpleDescRow[0]) : null;  //define your Dump filtr
                         $row['Range']  = $simpleDescRow[1];
                         $row['Collection']  = $simpleDescRow[2];
                         $row['Product']  = $simpleDescRow[4];
@@ -125,7 +125,7 @@ class ImporterControllerColor extends BaseController
 //                fputcsv($file, $row);
 
             };
-        dd($arrayOfColors);
+        return $arrayOfColors;
             fclose($file);
 //        };
 

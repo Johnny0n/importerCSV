@@ -85,10 +85,11 @@
                 </div>
 
                 <div class="links">
-                    <a href="http://127.0.0.1:8000/janek">impertero</a>
-                    <a href="http://127.0.0.1:8000/color">only color</a>
-                    <a href="http://127.0.0.1:8000/img">img dowloader</a>
-                    <a href="http://127.0.0.1:8000/img2">img dowloader test</a>
+                    <a href="http://127.0.0.1:8000/janek">Export all Files</a>
+                    <a href="http://127.0.0.1:8000/color">Only Color</a>
+                    <a href="http://127.0.0.1:8000/img">Img Dowloader</a>
+                    <a href="http://127.0.0.1:8000/like">Decide what u Export</a>
+                    <a href="http://127.0.0.1:8000/ex">EXPOLOSION </a>
                 </div>
             </div>
         </div>

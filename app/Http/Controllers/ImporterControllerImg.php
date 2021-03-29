@@ -18,7 +18,7 @@ class ImporterControllerImg extends BaseController
 
     public function importer(){
 
-        $sohGB = file("./storage/imgx.csv");
+        $sohGB = file("./storage/x18_portwest.csv");
 
 //        $image1 = "http://cdn.screenrant.com/wp-content/uploads/Darth-Vader-voiced-by-Arnold-Schwarzenegger.jpg";
 //        $image2 = "http://cdn.screenrant.com/wp-content/uploads/Star-Wars-Logo-Art.jpg";
@@ -37,12 +37,17 @@ class ImporterControllerImg extends BaseController
        // $zip->open($tmpFile, ZipArchive::CREATE);
 
         foreach ($files as $file) {
-            $imageUrl = preg_replace('/\s+/', '', $file);
-            $rawImage = file_get_contents($imageUrl);
+            $imageUrl = preg_replace('/\s+/', '', $file);//--&gt;
+            $rawImage = @file_get_contents($imageUrl);
+
+            if ($rawImage === false) {
+                // Handle error
+            }
+
             $filename=explode("/",$imageUrl)[sizeof(explode("/",$imageUrl))-1];
             if($rawImage)
             {
-                file_put_contents(storage_path("app/public/img/".$filename),$rawImage);
+                file_put_contents(storage_path("app/public/x18_portwest/".$filename),$rawImage);
             }
            // $zip->addFromString(basename($file), $fileContent);
         }
